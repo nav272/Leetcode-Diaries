@@ -1,3 +1,5 @@
+#refernce: https://leetcode.com/problems/longest-consecutive-sequence/discuss/41057/Simple-O(n)-with-Explanation-Just-walk-each-streak
+
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
         maxCounter = 0 
