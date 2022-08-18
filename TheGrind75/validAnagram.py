@@ -5,7 +5,6 @@ class Solution:
         shash = {}
         for i in s:
             shash[i] = 1 + shash.get(i, 0)
-        
         thash = {}
         for i in t:
             if i not in shash:
@@ -14,3 +13,5 @@ class Solution:
                 thash[i] = 1 + thash.get(i,0)
         
         return thash == shash
+
+Solution().isAnagram("tommarvoloriddle", "iamlordvoldemort")
