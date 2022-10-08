@@ -1,20 +1,25 @@
+from collections import deque
 class Solution:
-    def JobScheduling(self, start, end, profit):
-        jobs = sorted(zip(start, end, profit))
-        start.sort()
-        N = len(start)
-        maxprofit = [0 for i in range(N)]
-        maxprofit[-1] = jobs[-1][2]
-        def nextstart(left, right, target):
-            if left>right:
-                return left
-            mid = left + int((right-left)/2)
-            if start[mid] >= target:
-                return nextstart(left, mid-1, target)
-            else:
-                return nextstart(mid+1, right, target)
-        for i in range(N-2, -1, -1):
-            index = nextstart(start[0], start[-1], jobs[i][1])
-            profit = maxprofit[index] if index<N else 0
-            maxprofit[i] = max(profit + jobs[i][2], maxprofit[i+1])
-        return maxprofit[0]
+    def updateMatrix(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        myqueue = deque()
+        visited = set()
+        for i in range(m):
+            for j in range(n):
+                #mark the number of zeros
+                if matrix[i][j] == 0:
+                    myqueue.append((i, j))
+                    #keep track of visited 
+                    visited.add((i, j))
+        
+        while myqueue:
+            x, y = myqueue.popleft()
+            #going in the 4 directions from the current index
+            for i, j in [(0,1), (0,-1), (-1, 0), (1,0)]:
+                newX, newY = x+i, y+j
+                if newX>=0 and newX< m and newY >= 0 and newY < n and newY >=0 and (newX, newY) not in visited:
+                     matrix[newX][newY] = matrix[x][y] + 1
+                     myqueue.append((newX, newY))
+                     visited.add((newX, newY))
+        
+        return matrix
